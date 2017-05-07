@@ -7,8 +7,8 @@
 //
 
 #import "ViewController.h"
-#define screenwidth [UIScreen mainScreen].bounds.size.width
-#define screenheight [UIScreen mainScreen].bounds.size.height
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 @interface ViewController ()
 {
@@ -17,6 +17,7 @@
 }
 @end
 
+static const CGFloat delay = 0.75;
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -41,28 +42,28 @@
 - (void)initButtonBg {
     _buttonBg = [[UIButton alloc]init];
     [_buttonBg addTarget:self action:@selector(_closeSlideAction:) forControlEvents:UIControlEventTouchUpInside];
-    _buttonBg.frame = CGRectMake(0, 0, screenwidth, screenheight);
+    _buttonBg.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     _buttonBg.backgroundColor = [UIColor darkGrayColor];
     [[UIApplication sharedApplication].keyWindow addSubview:_buttonBg];
     _buttonBg.hidden = YES;
 }
 - (void)_buttonSldeAction:(id)sender {
-    [UIView animateWithDuration:0.75 animations:^{
+    [UIView animateWithDuration:delay animations:^{
         _buttonBg.hidden = NO;
-        _viewSlide.frame = CGRectMake(0, 0, 0.8*screenwidth, screenheight);
+        _viewSlide.frame = CGRectMake(0, 0, 0.8*SCREEN_WIDTH, SCREEN_HEIGHT);
     }];
 }
 
 - (void)initSlideView {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    _viewSlide = [[UIView alloc]initWithFrame:CGRectMake(-screenwidth, 0, 0.8*screenwidth, screenheight)];
+    _viewSlide = [[UIView alloc]initWithFrame:CGRectMake(-SCREEN_WIDTH, 0, 0.8*SCREEN_WIDTH, SCREEN_HEIGHT)];
     [keyWindow addSubview:_viewSlide];
     _viewSlide.backgroundColor = [UIColor grayColor];
 }
 
 - (void)_closeSlideAction:(id)sender {
-    [UIView animateWithDuration:0.75 animations:^{
-        _viewSlide.frame = CGRectMake(-screenwidth, 0, 0.8*screenwidth, screenheight);
+    [UIView animateWithDuration:delay animations:^{
+        _viewSlide.frame = CGRectMake(-SCREEN_WIDTH, 0, 0.8*SCREEN_WIDTH, SCREEN_HEIGHT);
         _buttonBg.hidden = YES;
     }];
 }
